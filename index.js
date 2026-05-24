@@ -4,14 +4,21 @@ const app = express();
 
 app.use(express.json());
 
-const produtos = [
+const usuarios = [
     {
         id: 1,
-        nome: 'Notebook'
+        nome: 'Hughie',
+        email: 'hughie@email.com'
     },
     {
         id: 2,
-        nome: 'Mouse'
+        nome: 'William',
+        email: 'william@email.com'
+    },
+    {
+        id: 3,
+        nome: 'Kimiko',
+        email: 'kimiko@email.com'
     }
 ];
 
@@ -19,42 +26,42 @@ app.get('/', (req, res) => {
     res.send('API funcionando');
 });
 
-app.get('/produtos', (req, res) => {
+app.get('/usuarios', (req, res) => {
 
-    res.json(produtos);
+    res.json(usuarios);
 });
 
-app.post('/produtos', (req, res) => {
+app.post('/usuarios', (req, res) => {
 
-    const novoProduto = req.body;
+    const usuario = req.body;
 
-    produtos.push(novoProduto);
+    usuarios.push(usuario);
 
     res.status(201).json({
-        mensagem: 'Produto criado',
-        produto: novoProduto
+        mensagem: 'Usuário criado',
+        usuario
     });
 });
 
-app.delete('/produtos/:id', (req, res) => {
+app.delete('/usuarios/:id', (req, res) => {
 
     const id = Number(req.params.id);
 
-    const indiceProduto = produtos.findIndex(
-        (produto) => produto.id === id
+    const indiceUsuario = usuarios.findIndex(
+        (usuario) => usuario.id === id
     );
 
-    if (indiceProduto === -1) {
+    if (indiceUsuario === -1) {
 
         return res.status(404).json({
-            mensagem: 'Produto não encontrado'
+            mensagem: 'Usuário não encontrado'
         });
     }
 
-    produtos.splice(indiceProduto, 1);
+    usuarios.splice(indiceUsuario, 1);
 
     res.json({
-        mensagem: 'Produto removido'
+        mensagem: 'Usuário removido'
     });
 });
 
