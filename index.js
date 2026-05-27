@@ -24,6 +24,25 @@ app.get('/produtos', (req, res) => {
     res.json(produtos);
 });
 
+// Get por ID
+app.get('/produtos/:id', (req, res) => {
+
+    const id = Number(req.params.id);
+
+    const indiceProduto = produtos.findIndex(
+        (produto) => produto.id === id
+    );
+
+    if (indiceProduto === -1) {
+
+        return res.status(404).json({
+            mensagem: 'Produto não encontrado'
+        });
+    }
+
+    res.json(produtos[indiceProduto]);
+});
+
 app.post('/produtos', (req, res) => {
 
     const novoProduto = req.body;
