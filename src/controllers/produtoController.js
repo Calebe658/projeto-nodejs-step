@@ -1,22 +1,20 @@
-const Produto = require('../models/Produto');
+const Produto = require("../models/Produto");
 
-const listarProduto = async (req, res) => {
-
+// GET /produtos
+const listarProdutos = async (req, res) => {
     const produtos = await Produto.find();
 
     res.json(produtos);
 };
 
+// POST /produtos
 const criarProduto = async (req, res) => {
-
-    const produto = await Produto.create(
-        req.body
-    );
+    const produto = await Produto.create(req.body);
 
     res.status(201).json(produto);
 };
 
 module.exports = {
-    listarProduto,
-    criarProduto
+    listarProdutos,
+    criarProduto,
 };
