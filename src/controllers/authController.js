@@ -6,7 +6,7 @@ const Usuario = require("../models/Usuario");
 const JWT_SECRET = process.env.JWT_SECRET || "segredo";
 
 const registrar = async (req, res) => {
-    const { nome, email, idade, senha } = req.body;
+    const { nome, email, idade, senha, role } = req.body;
 
     const existe = await Usuario.findOne({ email });
 
@@ -23,10 +23,11 @@ const registrar = async (req, res) => {
         email,
         idade,
         senha: senhaHash,
+        role,
     });
 
     const token = jwt.sign(
-        { id: usuario._id, email: usuario.email },
+        { id: usuario._id, email: usuario.email, role: usuario.role },
         JWT_SECRET,
         { expiresIn: "1d" }
     );
@@ -60,7 +61,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-        { id: usuario._id, email: usuario.email },
+        { id: usuario._id, email: usuario.email, role: usuario.role },
         JWT_SECRET,
         { expiresIn: "1d" }
     );

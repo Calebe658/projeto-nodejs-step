@@ -18,6 +18,7 @@ const autenticar = (req, res, next) => {
 
         req.usuarioId = payload.id;
         req.usuarioEmail = payload.email;
+        req.usuarioRole = payload.role;
 
         next();
     } catch (erro) {
