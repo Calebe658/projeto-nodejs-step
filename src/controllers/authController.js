@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const Usuario = require("../models/Usuario");
 const logger = require("../utils/logger");
+const notificarUsuario = require("../middlewares/notificacaoMiddleware");
 const { ErroValidacao, ErroAutenticacao } = require("../utils/erros");
 
 const JWT_SECRET = process.env.JWT_SECRET || "segredo";
@@ -37,6 +38,7 @@ const registrar = async (req, res) => {
         );
 
         logger.info(`Usuário registrado: ${email}`);
+        notificarUsuario(nome, email);
 
         res.status(201).json({
             mensagem: "Usuário registrado",
