@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Lista de Categorias</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabela-categorias"></tbody>
+    </table>
+
+    <script>
+        async function carregarCategorias() {
+
+            try {
+                const resposta = await fetch("/pg/categorias");
+                const categorias = await resposta.json();
+
+                const tbody = document.getElementById("tabela-categorias");
+
+                tbody.innerHTML = "";
+
+                categorias.forEach(categoria => {
+                    tbody.innerHTML += `
+                <tr>
+                    <td>${categoria.id}</td>
+                    <td>${categoria.nome}</td>
+                    <td>${categoria.descricao}</td>
+                </tr>
+            `;
+                });
+
+            } catch (erro) {
+                console.log("Erro ao carregar categorias", erro);
+            }
+        }
+
+        carregarCategorias();
+    </script>
+</body>
+
+</html>

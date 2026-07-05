@@ -11,6 +11,7 @@ const streamRoutes = require("./routes/streamRoutes");
 const cepRoutes = require("./routes/cepRoutes");
 const sessaoRoutes = require("./routes/sessaoRoutes");
 const produtoPgRoutes = require("./routes/produtoPgRoutes");
+const categoriaRoutes = require("./routes/categoriaRoutes");
 
 const loggerMiddleware = require("./middlewares/loggerMiddleware");
 
@@ -45,5 +46,6 @@ app.use(streamRoutes);
 app.use(cepRoutes);
 app.use(sessaoRoutes);
 app.use(produtoPgRoutes);
+app.use(categoriaRoutes);
 
 module.exports = app;
